@@ -1,0 +1,6 @@
+@dexian_itg_challange_HostAddress = http://localhost:5290
+
+GET {{dexian_itg_challange_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

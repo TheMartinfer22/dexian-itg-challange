@@ -1,0 +1,62 @@
+using dexian_itg_challange.Model;
+using dexian_itg_challange.Service.impl;
+
+namespace dexian_itg_challange.Service
+{
+    public class AlunoService : IAlunoService
+    {
+        private static List<Aluno> _alunos = new();
+
+        public List<Aluno> GetAlunos()
+        {
+            return _alunos;
+        }
+
+        public Aluno GetAlunoById(int id)
+        {
+            return _alunos.FirstOrDefault(aluno => aluno.ICodAluno == id) ?? throw new InvalidOperationException("Aluno não encontrado.");
+        }
+
+        public void AddAluno(Aluno aluno)
+        {
+            if (aluno == null)
+            {
+                throw new ArgumentNullException(nameof(aluno), "O aluno não pode ser nulo.");
+            }
+
+            if (_alunos.Any(a => a.ICodAluno == aluno.ICodAluno))
+            {
+                throw new InvalidOperationException("Já existe um aluno com o mesmo ID.");
+            }
+
+            _alunos.Add(aluno);
+        }
+
+        public void UpdateAluno(int id, Aluno aluno)
+        {
+            if (aluno == null)
+            {
+                throw new ArgumentNullException(nameof(aluno), "O aluno não pode ser nulo.");
+            }
+
+            int index = FindAlunoIndex(id);
+            if (index == -1)
+            {
+                throw new KeyNotFoundException($"Aluno com ID {id} não encontrado.");
+            }
+
+            _alunos[index] = aluno;
+        }
+
+        public void DeleteAluno(int id)
+        {
+            Aluno aluno = GetAlunoById(id);
+            _alunos.Remove(aluno);
+        }
+
+        private int FindAlunoIndex(int target)
+        {
+            return _alunos.FindIndex(aluno => aluno.ICodAluno == target);
+        }
+    }
+}
