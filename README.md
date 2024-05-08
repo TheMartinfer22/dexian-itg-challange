@@ -6,7 +6,7 @@ Esta documentação fornece instruções de inicialização, ferramentas utiliza
 
 Para iniciar a aplicação, siga os passos abaixo:
 
-1. Certifique-se de ter o .NET Core instalado em sua máquina.
+1. Certifique-se de ter o .NET Core 8 instalado em sua máquina.
 2. Clone o repositório do GitHub para sua máquina local.
 3. Navegue até o diretório raiz da aplicação.
 4. Execute o comando `dotnet run` para iniciar a aplicação.
