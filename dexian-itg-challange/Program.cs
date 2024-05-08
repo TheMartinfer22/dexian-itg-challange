@@ -3,7 +3,6 @@ using dexian_itg_challange.Service.impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,6 +24,13 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseCors(builderCors =>
+{
+    builderCors.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
 
 app.MapControllers();
 
