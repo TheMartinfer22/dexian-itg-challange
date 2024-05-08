@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using dexian_itg_challange.Model;
 using dexian_itg_challange.Service.impl;
 
@@ -24,6 +25,13 @@ namespace dexian_itg_challange.Service
                 throw new ArgumentNullException(nameof(aluno), "O aluno não pode ser nulo.");
             }
 
+            var validationContext = new ValidationContext(aluno, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(aluno, validationContext, validationResults, validateAllProperties: true))
+            {
+                throw new ArgumentException(string.Join("\n", validationResults.Select(r => r.ErrorMessage)));
+            }
+
             if (_alunos.Any(a => a.ICodAluno == aluno.ICodAluno))
             {
                 throw new InvalidOperationException("Já existe um aluno com o mesmo ID.");
@@ -39,6 +47,13 @@ namespace dexian_itg_challange.Service
                 throw new ArgumentNullException(nameof(aluno), "O aluno não pode ser nulo.");
             }
 
+            var validationContext = new ValidationContext(aluno, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+            if (!Validator.TryValidateObject(aluno, validationContext, validationResults, validateAllProperties: true))
+            {
+                throw new ArgumentException(string.Join("\n", validationResults.Select(r => r.ErrorMessage)));
+            }
+
             int index = FindAlunoIndex(id);
             if (index == -1)
             {
@@ -47,6 +62,7 @@ namespace dexian_itg_challange.Service
 
             _alunos[index] = aluno;
         }
+
 
         public void DeleteAluno(int id)
         {
