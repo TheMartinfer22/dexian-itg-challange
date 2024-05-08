@@ -31,12 +31,15 @@ namespace dexian_itg_challange.Service
             {
                 throw new ArgumentException(string.Join("\n", validationResults.Select(r => r.ErrorMessage)));
             }
-
-            if (_alunos.Any(a => a.ICodAluno == aluno.ICodAluno))
+            var alunosCount = _alunos.Count;
+            if (alunosCount == 0)
             {
-                throw new InvalidOperationException("Já existe um aluno com o mesmo ID.");
+                aluno.ICodAluno = 1;
             }
-
+            else
+            {
+                aluno.ICodAluno = alunosCount + 2;
+            }
             _alunos.Add(aluno);
         }
 

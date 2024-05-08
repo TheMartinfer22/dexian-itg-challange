@@ -28,7 +28,9 @@ namespace dexian_itg_challange.Service
             {
                 throw new InvalidOperationException("Já existe uma escola com o mesmo ID.");
             }
-
+            
+            var escolasCount = _escolas.Count;
+            escola.ICodEscola = escolasCount + 2;
             _escolas.Add(escola);
         }
 
